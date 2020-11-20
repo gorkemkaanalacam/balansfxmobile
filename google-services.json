@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "666343126072",
+    "firebase_url": "https://balansfx-21322.firebaseio.com",
+    "project_id": "balansfx-21322",
+    "storage_bucket": "balansfx-21322.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:666343126072:android:808c368392210631c062cd",
+        "android_client_info": {
+          "package_name": "com.balancefx.balancefx"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "666343126072-v6d37iet1e7c33qdk0ar4f4llo8huuan.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKi_XZJurWTpdb5TD2dqJBCBqURQfAV4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "666343126072-v6d37iet1e7c33qdk0ar4f4llo8huuan.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
