@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Entypo } from '@expo/vector-icons'; 
-import {Provider, AuthContext } from './src/context/authContext';
+import { Entypo } from '@expo/vector-icons';
+import { Provider, AuthContext } from './src/context/authContext';
 import TradingStackScreen from './src/navigator/TradingStackScreen';
 import PortfolioStackScreen from './src/navigator/PortfolioStackScreen';
 import NewsStackScreen from './src/navigator/NewsStackScreen';
@@ -33,13 +36,27 @@ const AuthNavigator = createStackNavigator();
 function AuthNavigatorScreen() {
   return (
     <AuthNavigator.Navigator
-    screenOptions={{cardStyleInterpolator:CardStyleInterpolators.forHorizontalIOS, headerShown:false}}>
-      <AuthNavigator.Screen options={{ headerShown: false }} name="MainAuth" component={MainAuthScreen} />
+      screenOptions={{
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+        headerShown: false,
+      }}
+    >
+      <AuthNavigator.Screen
+        options={{ headerShown: false }}
+        name="MainAuth"
+        component={MainAuthScreen}
+      />
       <AuthNavigator.Screen name="Login" component={LoginScreen} />
       <AuthNavigator.Screen name="Register" component={RegisterScreen} />
-      <AuthNavigator.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+      <AuthNavigator.Screen
+        name="ForgotPassword"
+        component={ForgotPasswordScreen}
+      />
       <AuthNavigator.Screen name="Activation" component={ActivationScreen} />
-      <AuthNavigator.Screen name="ChangeForgottenPassword" component={ChangeForgottenPasswordScreen} />
+      <AuthNavigator.Screen
+        name="ChangeForgottenPassword"
+        component={ChangeForgottenPasswordScreen}
+      />
     </AuthNavigator.Navigator>
   );
 }
@@ -51,23 +68,18 @@ function TabNavigatorScreen() {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          
+
           if (route.name === 'Trading') {
             iconName = focused ? 'swap' : 'swap';
-          }
-          else if (route.name === 'Portfolio') {
+          } else if (route.name === 'Portfolio') {
             iconName = focused ? 'wallet' : 'wallet';
-          }
-          else if (route.name === 'News') {
+          } else if (route.name === 'News') {
             iconName = focused ? 'news' : 'news';
-          }
-          else if (route.name === 'Bulletin') {
+          } else if (route.name === 'Bulletin') {
             iconName = focused ? 'area-graph' : 'area-graph';
-          }
-           else if (route.name === 'Sentiments') {
+          } else if (route.name === 'Sentiments') {
             iconName = focused ? 'line-graph' : 'line-graph';
-          }
-          else if (route.name === 'Menu') {
+          } else if (route.name === 'Menu') {
             iconName = focused ? 'menu' : 'menu';
           }
 
@@ -80,17 +92,39 @@ function TabNavigatorScreen() {
         inactiveTintColor: '#C4CAD4',
       }}
     >
-      <TabNavigator.Screen name="Trading" options={{title:'Sinyal'}} component={TradingStackScreen} />
-      <TabNavigator.Screen name="Portfolio" options={{title:'Fiyatlar'}} component={PortfolioStackScreen} />
-      <TabNavigator.Screen name="News" options={{title:'Haberler'}} component={NewsStackScreen} />
-      <TabNavigator.Screen name="Bulletin" options={{title:'Bülten'}} component={BulletinStackScreen} />
-      <TabNavigator.Screen name="Sentiments" options={{title:'Takvim'}} component={SentimentsStackScreen} />
-      <TabNavigator.Screen name="Menu" options={{title:'Menü'}} component={MenuStackScreen} />
+      <TabNavigator.Screen
+        name="Trading"
+        options={{ title: 'Sinyal' }}
+        component={TradingStackScreen}
+      />
+      <TabNavigator.Screen
+        name="Portfolio"
+        options={{ title: 'Fiyatlar' }}
+        component={PortfolioStackScreen}
+      />
+      <TabNavigator.Screen
+        name="News"
+        options={{ title: 'Haberler' }}
+        component={NewsStackScreen}
+      />
+      <TabNavigator.Screen
+        name="Bulletin"
+        options={{ title: 'Bülten' }}
+        component={BulletinStackScreen}
+      />
+      <TabNavigator.Screen
+        name="Sentiments"
+        options={{ title: 'Takvim' }}
+        component={SentimentsStackScreen}
+      />
+      <TabNavigator.Screen
+        name="Menu"
+        options={{ title: 'Menü' }}
+        component={MenuStackScreen}
+      />
     </TabNavigator.Navigator>
   );
 }
-
-
 
 const AppMainNavigator = createStackNavigator();
 const AppMainNavigatorScreen = () => {
@@ -100,39 +134,48 @@ const AppMainNavigatorScreen = () => {
   return (
     <AppMainNavigator.Navigator
       screenOptions={{
-        headerShown: false
+        headerShown: false,
       }}
     >
-      {
-        isAuth ?
-          <AppMainNavigator.Screen name="TabNavigator" component={TabNavigatorScreen} />
-          :
-          <AppMainNavigator.Screen name="AuthNavigator" component={AuthNavigatorScreen} />
-          
-      }
+      {isAuth ? (
+        <AppMainNavigator.Screen
+          name="TabNavigator"
+          component={TabNavigatorScreen}
+        />
+      ) : (
+        <AppMainNavigator.Screen
+          name="AuthNavigator"
+          component={AuthNavigatorScreen}
+        />
+      )}
     </AppMainNavigator.Navigator>
   );
-}
+};
 
 export default function App() {
-
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
-    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+    registerForPushNotificationsAsync().then((token) =>
+      setExpoPushToken(token)
+    );
 
     // This listener is fired whenever a notification is received while the app is foregrounded
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    notificationListener.current = Notifications.addNotificationReceivedListener(
+      (notification) => {
+        setNotification(notification);
+      }
+    );
 
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
-    });
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        console.log(response);
+      }
+    );
 
     return () => {
       Notifications.removeNotificationSubscription(notificationListener);
@@ -152,7 +195,9 @@ export default function App() {
 async function registerForPushNotificationsAsync() {
   let token;
   if (Constants.isDevice) {
-    const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    const { status: existingStatus } = await Permissions.getAsync(
+      Permissions.NOTIFICATIONS
+    );
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -163,9 +208,12 @@ async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    await fetch('https://api.balancefx.co.uk/PushNotification/Create?token=' + token, {
-    method: 'POST'
-  });
+    await fetch(
+      'https://api.balancefx.co.uk/PushNotification/Create?token=' + token,
+      {
+        method: 'POST',
+      }
+    );
   } else {
     alert('Must use physical device for Push Notifications');
   }

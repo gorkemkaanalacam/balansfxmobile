@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-  baseURL: 'https://api.balancefx.co.uk/Signal',
+  baseURL: 'https://webapi.balancefx.co.uk/API',
 });
